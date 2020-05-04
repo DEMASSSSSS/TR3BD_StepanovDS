@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DEMASSSSSSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ARTIST">
+    <Key>
+      <PropertyRef Name="ARTST_ID" />
+    </Key>
+    <Property Name="ARTST_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FIO_ARTST" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="PASSPORT_ARTST" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="SALARY_ARTST" Type="Int32" />
+    <Property Name="TEAM_ID_ARTST" Type="Int32" />
+    <NavigationProperty Name="TEAM_ARTST" Relationship="Self.FK__ARTIST__TEAM_ID___5AEE82B9" FromRole="ARTIST" ToRole="TEAM_ARTST" />
+  </EntityType>
+  <EntityType Name="DEVELOPER">
+    <Key>
+      <PropertyRef Name="DVLP_ID" />
+    </Key>
+    <Property Name="DVLP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FIO_DVLP" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="PASSPORT_DVLP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="LNG" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="SALARY_DVLP" Type="Int32" />
+    <Property Name="LEADER" Type="Boolean" />
+    <Property Name="EXPERIENCE" Type="Int32" />
+    <Property Name="EDUCATION" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="TEAM_ID_DVLP" Type="Int32" />
+    <NavigationProperty Name="TEAM_DVLP" Relationship="Self.FK__DEVELOPER__TEAM___5812160E" FromRole="DEVELOPER" ToRole="TEAM_DVLP" />
+  </EntityType>
+  <EntityType Name="GAME">
+    <Key>
+      <PropertyRef Name="ID_GAMES" />
+    </Key>
+    <Property Name="ID_GAMES" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="STARTCREATING" Type="DateTime" Precision="0" />
+    <Property Name="ENDCREATING" Type="DateTime" Precision="0" />
+    <Property Name="PROFIT" Type="Int32" />
+    <Property Name="TEAM_ID_DVLP" Type="Int32" />
+    <Property Name="MANAGER_ID" Type="Int32" />
+    <Property Name="MANAGERPR_ID" Type="Int32" />
+    <Property Name="RATE" Type="Int32" />
+    <NavigationProperty Name="MANAGER" Relationship="Self.FK__GAMES__MANAGER_I__5070F446" FromRole="GAMES" ToRole="MANAGER" />
+    <NavigationProperty Name="MANAGER1" Relationship="Self.FK__GAMES__MANAGERPR__5165187F" FromRole="GAMES" ToRole="MANAGER" />
+    <NavigationProperty Name="TEAM_DVLP" Relationship="Self.FK__GAMES__TEAM_ID_D__4F7CD00D" FromRole="GAMES" ToRole="TEAM_DVLP" />
+  </EntityType>
+  <EntityType Name="GAMESINPROCESS">
+    <Key>
+      <PropertyRef Name="GAMESINPROCESS_ID" />
+    </Key>
+    <Property Name="GAMESINPROCESS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TEAM_ID_DVLP" Type="Int32" />
+    <Property Name="TEAM_ID_ARTST" Type="Int32" />
+    <Property Name="STARTCREATING" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="TEAM_DVLP" Relationship="Self.FK__GAMESINPR__TEAM___5441852A" FromRole="GAMESINPROCESS" ToRole="TEAM_DVLP" />
+    <NavigationProperty Name="TEAM_ARTST" Relationship="Self.FK__GAMESINPR__TEAM___5535A963" FromRole="GAMESINPROCESS" ToRole="TEAM_ARTST" />
+  </EntityType>
+  <EntityType Name="MANAGER">
+    <Key>
+      <PropertyRef Name="MANAGER_ID" />
+    </Key>
+    <Property Name="MANAGER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FIO_MNG" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="SALARY_MNG" Type="Int32" />
+    <NavigationProperty Name="GAMES" Relationship="Self.FK__GAMES__MANAGER_I__5070F446" FromRole="MANAGER" ToRole="GAMES" />
+    <NavigationProperty Name="GAMES1" Relationship="Self.FK__GAMES__MANAGERPR__5165187F" FromRole="MANAGER" ToRole="GAMES" />
+  </EntityType>
+  <EntityType Name="TEAM_ARTST">
+    <Key>
+      <PropertyRef Name="TEAM_ARTST_ID" />
+    </Key>
+    <Property Name="TEAM_ARTST_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ARTISTs" Relationship="Self.FK__ARTIST__TEAM_ID___5AEE82B9" FromRole="TEAM_ARTST" ToRole="ARTIST" />
+    <NavigationProperty Name="GAMESINPROCESSes" Relationship="Self.FK__GAMESINPR__TEAM___5535A963" FromRole="TEAM_ARTST" ToRole="GAMESINPROCESS" />
+  </EntityType>
+  <EntityType Name="TEAM_DVLP">
+    <Key>
+      <PropertyRef Name="TEAM_DVLP_ID" />
+    </Key>
+    <Property Name="TEAM_DVLP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DEVELOPERs" Relationship="Self.FK__DEVELOPER__TEAM___5812160E" FromRole="TEAM_DVLP" ToRole="DEVELOPER" />
+    <NavigationProperty Name="GAMES" Relationship="Self.FK__GAMES__TEAM_ID_D__4F7CD00D" FromRole="TEAM_DVLP" ToRole="GAMES" />
+    <NavigationProperty Name="GAMESINPROCESSes" Relationship="Self.FK__GAMESINPR__TEAM___5441852A" FromRole="TEAM_DVLP" ToRole="GAMESINPROCESS" />
+  </EntityType>
+  <Association Name="FK__ARTIST__TEAM_ID___5AEE82B9">
+    <End Role="TEAM_ARTST" Type="Self.TEAM_ARTST" Multiplicity="0..1" />
+    <End Role="ARTIST" Type="Self.ARTIST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TEAM_ARTST">
+        <PropertyRef Name="TEAM_ARTST_ID" />
+      </Principal>
+      <Dependent Role="ARTIST">
+        <PropertyRef Name="TEAM_ID_ARTST" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DEVELOPER__TEAM___5812160E">
+    <End Role="TEAM_DVLP" Type="Self.TEAM_DVLP" Multiplicity="0..1" />
+    <End Role="DEVELOPER" Type="Self.DEVELOPER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TEAM_DVLP">
+        <PropertyRef Name="TEAM_DVLP_ID" />
+      </Principal>
+      <Dependent Role="DEVELOPER">
+        <PropertyRef Name="TEAM_ID_DVLP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GAMES__MANAGER_I__5070F446">
+    <End Role="MANAGER" Type="Self.MANAGER" Multiplicity="0..1" />
+    <End Role="GAMES" Type="Self.GAME" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MANAGER">
+        <PropertyRef Name="MANAGER_ID" />
+      </Principal>
+      <Dependent Role="GAMES">
+        <PropertyRef Name="MANAGER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GAMES__MANAGERPR__5165187F">
+    <End Role="MANAGER" Type="Self.MANAGER" Multiplicity="0..1" />
+    <End Role="GAMES" Type="Self.GAME" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MANAGER">
+        <PropertyRef Name="MANAGER_ID" />
+      </Principal>
+      <Dependent Role="GAMES">
+        <PropertyRef Name="MANAGERPR_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GAMES__TEAM_ID_D__4F7CD00D">
+    <End Role="TEAM_DVLP" Type="Self.TEAM_DVLP" Multiplicity="0..1" />
+    <End Role="GAMES" Type="Self.GAME" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TEAM_DVLP">
+        <PropertyRef Name="TEAM_DVLP_ID" />
+      </Principal>
+      <Dependent Role="GAMES">
+        <PropertyRef Name="TEAM_ID_DVLP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GAMESINPR__TEAM___5441852A">
+    <End Role="TEAM_DVLP" Type="Self.TEAM_DVLP" Multiplicity="0..1" />
+    <End Role="GAMESINPROCESS" Type="Self.GAMESINPROCESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TEAM_DVLP">
+        <PropertyRef Name="TEAM_DVLP_ID" />
+      </Principal>
+      <Dependent Role="GAMESINPROCESS">
+        <PropertyRef Name="TEAM_ID_DVLP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GAMESINPR__TEAM___5535A963">
+    <End Role="TEAM_ARTST" Type="Self.TEAM_ARTST" Multiplicity="0..1" />
+    <End Role="GAMESINPROCESS" Type="Self.GAMESINPROCESS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TEAM_ARTST">
+        <PropertyRef Name="TEAM_ARTST_ID" />
+      </Principal>
+      <Dependent Role="GAMESINPROCESS">
+        <PropertyRef Name="TEAM_ID_ARTST" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GameDataBase1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ARTISTs" EntityType="Self.ARTIST" />
+    <EntitySet Name="DEVELOPERs" EntityType="Self.DEVELOPER" />
+    <EntitySet Name="GAMES" EntityType="Self.GAME" />
+    <EntitySet Name="GAMESINPROCESSes" EntityType="Self.GAMESINPROCESS" />
+    <EntitySet Name="MANAGERs" EntityType="Self.MANAGER" />
+    <EntitySet Name="TEAM_ARTST" EntityType="Self.TEAM_ARTST" />
+    <EntitySet Name="TEAM_DVLP" EntityType="Self.TEAM_DVLP" />
+    <AssociationSet Name="FK__ARTIST__TEAM_ID___5AEE82B9" Association="Self.FK__ARTIST__TEAM_ID___5AEE82B9">
+      <End Role="TEAM_ARTST" EntitySet="TEAM_ARTST" />
+      <End Role="ARTIST" EntitySet="ARTISTs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DEVELOPER__TEAM___5812160E" Association="Self.FK__DEVELOPER__TEAM___5812160E">
+      <End Role="TEAM_DVLP" EntitySet="TEAM_DVLP" />
+      <End Role="DEVELOPER" EntitySet="DEVELOPERs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GAMES__MANAGER_I__5070F446" Association="Self.FK__GAMES__MANAGER_I__5070F446">
+      <End Role="MANAGER" EntitySet="MANAGERs" />
+      <End Role="GAMES" EntitySet="GAMES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GAMES__MANAGERPR__5165187F" Association="Self.FK__GAMES__MANAGERPR__5165187F">
+      <End Role="MANAGER" EntitySet="MANAGERs" />
+      <End Role="GAMES" EntitySet="GAMES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GAMES__TEAM_ID_D__4F7CD00D" Association="Self.FK__GAMES__TEAM_ID_D__4F7CD00D">
+      <End Role="TEAM_DVLP" EntitySet="TEAM_DVLP" />
+      <End Role="GAMES" EntitySet="GAMES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GAMESINPR__TEAM___5441852A" Association="Self.FK__GAMESINPR__TEAM___5441852A">
+      <End Role="TEAM_DVLP" EntitySet="TEAM_DVLP" />
+      <End Role="GAMESINPROCESS" EntitySet="GAMESINPROCESSes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GAMESINPR__TEAM___5535A963" Association="Self.FK__GAMESINPR__TEAM___5535A963">
+      <End Role="TEAM_ARTST" EntitySet="TEAM_ARTST" />
+      <End Role="GAMESINPROCESS" EntitySet="GAMESINPROCESSes" />
+    </AssociationSet>
+    <FunctionImport Name="SelectLan" ReturnType="Collection(DEMASSSSSSModel.SelectLan_Result)">
+      <Parameter Name="lan" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="SelectLan_Result">
+    <Property Type="String" Name="FIO_DVLP" Nullable="true" MaxLength="60" />
+    <Property Type="String" Name="NAME" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="SALARY_DVLP" Nullable="true" />
+  </ComplexType>
+</Schema>

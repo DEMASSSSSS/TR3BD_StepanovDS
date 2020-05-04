@@ -1,0 +1,241 @@
+﻿<Window x:Name="Main_Window" x:Class="GameProj.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameProj"
+        xmlns:view="clr-namespace:GameProj.View"
+        xmlns:models="clr-namespace:GameProj.Models"
+        mc:Ignorable="d"
+        Title="GameDB" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Background="#FF252526" WindowStyle="ToolWindow" ResizeMode="CanMinimize">
+    <Window.DataContext>
+        <view:ViewAll/>
+    </Window.DataContext>
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="391*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Height="20" Background="#FF3E3E42">
+            <MenuItem Foreground="White" Header="Главная">
+                <MenuItem Background="#FF3E3E42" Foreground="White" Header="Выход" Click="MenuItem_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Name="MenuItem"  Header="Действия" Foreground="White">
+                <MenuItem Click="MenuItem_OnClick2" Background="#FF3E3E42" Foreground="White" Header="Данные по проектам"></MenuItem>
+                <MenuItem Click="MenuItem_OnClick" Background="#FF3E3E42" Foreground="White" Header="Отбор по языку"></MenuItem>
+                <MenuItem Background="#FF3E3E42" Foreground="White" Header="Сортировка по рейтингу" Click="MenuItem_Click_1"></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <TabControl Name="TabControl" Background="#FF3E3E42" Grid.Row="1">
+            <TabItem Header="Разработчики">
+
+                <DataGrid Margin="8" AlternatingRowBackground="LightGray" RowEditEnding="MainDataGrid_OnRowEditEnding" CanUserDeleteRows="False" CellEditEnding="MainDataGrid_OnCellEditEnding" ItemsSource="{Binding Items,UpdateSourceTrigger=PropertyChanged}" SelectedItem="" AutoGenerateColumns="False" Name="MainDataGrid" SelectionMode="Single" Background="#FFF0F0F0">
+                    <DataGrid.Resources>
+                        <ContextMenu x:Key="RowMenu" >
+                            <MenuItem Click="ButtonBase_OnClick" Header="Удалить"/>
+                        </ContextMenu>
+                    </DataGrid.Resources>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" >
+                            <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                        </Style>
+                    </DataGrid.RowStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding DVLP_ID}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="ФИО" Binding="{Binding FIO_DVLP,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Паспортные данные" Binding="{Binding PASSPORT_DVLP,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Язык" Binding="{Binding LNG,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridCheckBoxColumn Header="Лидер" Binding="{Binding LEADER,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Зарплата" Binding="{Binding SALARY_DVLP,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Образование" Binding="{Binding EDUCATION,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Опыт работы" Binding="{Binding EXPERIENCE,UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <DataGridComboBoxColumn Header="Команда" Width="auto" SelectedValueBinding="{Binding TEAM_ID_DVLP,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NAME" SelectedValuePath="TEAM_DVLP_ID">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.ItemsTeams, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.ItemsTeams}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button BorderThickness="0" Background="Transparent" FontWeight="Bold" Content="Удалить" Click="ButtonBase_OnClick" x:Name="deleteButton" Cursor="Hand" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </TabItem>
+            <TabItem Header="Игры">
+                <DataGrid Margin="8" AlternatingRowBackground="LightGray" RowEditEnding="MainDataGrid_OnRowEditEnding" CanUserDeleteRows="False" CellEditEnding="MainDataGrid_OnCellEditEnding" ItemsSource="{Binding GameItems ,UpdateSourceTrigger=PropertyChanged}" SelectedItem="" AutoGenerateColumns="False" Name="GameDataGrid" SelectionMode="Single" Background="#FFF0F0F0">
+                    <DataGrid.Resources>
+                        <ContextMenu x:Key="RowMenu" >
+                            <MenuItem Click="ButtonBase_OnClick" Header="Удалить"/>
+                        </ContextMenu>
+                    </DataGrid.Resources>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" >
+                            <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding ID_GAMES}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Название" Binding="{Binding NAME,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Выгода" Binding="{Binding PROFIT,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Рейтинг" Binding="{Binding RATE,UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <DataGridTemplateColumn Header="Начальная дата">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding STARTCREATING,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding STARTCREATING,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Конечная дата">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ENDCREATING,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding ENDCREATING,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridComboBoxColumn Header="Команда разработчиков" Width="auto" SelectedValueBinding="{Binding TEAM_ID_DVLP,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NAME" SelectedValuePath="TEAM_DVLP_ID">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.ItemsTeams,UpdateSourceTrigger=PropertyChanged}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.ItemsTeams}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn x:Name="ManColumn" Header="Менеджер" Width="auto" SelectedValueBinding="{Binding MANAGER_ID,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="FIO_MNG" SelectedValuePath="MANAGER_ID">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.GameItemsManager,UpdateSourceTrigger=PropertyChanged}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.GameItemsManager}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Cursor="Hand" BorderThickness="0" Background="Transparent" FontWeight="Bold" Content="Удалить" Click="ButtonBase_OnClick" x:Name="deleteButton" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <TabItem Header="Менеджеры">
+
+                <DataGrid Margin="8" AlternatingRowBackground="LightGray" RowEditEnding="MainDataGrid_OnRowEditEnding" CanUserDeleteRows="False" CellEditEnding="MainDataGrid_OnCellEditEnding" ItemsSource="{Binding ManagerItems,UpdateSourceTrigger=PropertyChanged}" SelectedItem="" AutoGenerateColumns="False" Name="ManagerDataGrid" SelectionMode="Single" Background="#FFF0F0F0">
+                    <DataGrid.Resources>
+                        <ContextMenu x:Key="RowMenu" >
+                            <MenuItem Click="ButtonBase_OnClick" Header="Удалить"/>
+                        </ContextMenu>
+                    </DataGrid.Resources>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" >
+                            <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding MANAGER_ID}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="ФИО" Binding="{Binding FIO_MNG,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Зарплата" Binding="{Binding SALARY_MNG,UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Cursor="Hand" BorderThickness="0" Background="Transparent" FontWeight="Bold" Content="Удалить" Click="ButtonBase_OnClick" x:Name="deleteButton" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </TabItem>
+
+            <TabItem Header="Художники">
+
+                <DataGrid Margin="8" AlternatingRowBackground="LightGray" RowEditEnding="MainDataGrid_OnRowEditEnding" CanUserDeleteRows="False" CellEditEnding="MainDataGrid_OnCellEditEnding" ItemsSource="{Binding ArtistItems,UpdateSourceTrigger=PropertyChanged}" SelectedItem="" AutoGenerateColumns="False" Name="ArtDataGrid" SelectionMode="Single" Background="#FFF0F0F0">
+                    <DataGrid.Resources>
+                        <ContextMenu x:Key="RowMenu" >
+                            <MenuItem Click="ButtonBase_OnClick" Header="Удалить"/>
+                        </ContextMenu>
+                    </DataGrid.Resources>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" >
+                            <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding ARTST_ID}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="ФИО" Binding="{Binding FIO_ARTST,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Паспортные данные" Binding="{Binding PASSPORT_ARTST,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Зарплата" Binding="{Binding SALARY_ARTST,UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <DataGridComboBoxColumn Header="Команда" Width="auto" SelectedValueBinding="{Binding TEAM_ID_ARTST,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NAME" SelectedValuePath="TEAM_ARTST_ID">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.ArtistTeamItems,UpdateSourceTrigger=PropertyChanged}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.ArtistTeamItems}"/>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Cursor="Hand" BorderThickness="0" Background="Transparent" FontWeight="Bold" Content="Удалить" Click="ButtonBase_OnClick" x:Name="deleteButton" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </TabItem>
+
+        </TabControl>
+
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище DEMASSSSSSModelContainer" CdmEntityContainer="GameDataBase1">
+    <EntitySetMapping Name="ARTISTs">
+      <EntityTypeMapping TypeName="DEMASSSSSSModel.ARTIST">
+        <MappingFragment StoreEntitySet="ARTIST">
+          <ScalarProperty Name="ARTST_ID" ColumnName="ARTST_ID" />
+          <ScalarProperty Name="FIO_ARTST" ColumnName="FIO_ARTST" />
+          <ScalarProperty Name="PASSPORT_ARTST" ColumnName="PASSPORT_ARTST" />
+          <ScalarProperty Name="SALARY_ARTST" ColumnName="SALARY_ARTST" />
+          <ScalarProperty Name="TEAM_ID_ARTST" ColumnName="TEAM_ID_ARTST" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DEVELOPERs">
+      <EntityTypeMapping TypeName="DEMASSSSSSModel.DEVELOPER">
+        <MappingFragment StoreEntitySet="DEVELOPER">
+          <ScalarProperty Name="DVLP_ID" ColumnName="DVLP_ID" />
+          <ScalarProperty Name="FIO_DVLP" ColumnName="FIO_DVLP" />
+          <ScalarProperty Name="PASSPORT_DVLP" ColumnName="PASSPORT_DVLP" />
+          <ScalarProperty Name="LNG" ColumnName="LNG" />
+          <ScalarProperty Name="SALARY_DVLP" ColumnName="SALARY_DVLP" />
+          <ScalarProperty Name="LEADER" ColumnName="LEADER" />
+          <ScalarProperty Name="EXPERIENCE" ColumnName="EXPERIENCE" />
+          <ScalarProperty Name="EDUCATION" ColumnName="EDUCATION" />
+          <ScalarProperty Name="TEAM_ID_DVLP" ColumnName="TEAM_ID_DVLP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GAMES">
+      <EntityTypeMapping TypeName="DEMASSSSSSModel.GAME">
+        <MappingFragment StoreEntitySet="GAMES">
+          <ScalarProperty Name="ID_GAMES" ColumnName="ID_GAMES" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="STARTCREATING" ColumnName="STARTCREATING" />
+          <ScalarProperty Name="ENDCREATING" ColumnName="ENDCREATING" />
+          <ScalarProperty Name="PROFIT" ColumnName="PROFIT" />
+          <ScalarProperty Name="TEAM_ID_DVLP" ColumnName="TEAM_ID_DVLP" />
+          <ScalarProperty Name="MANAGER_ID" ColumnName="MANAGER_ID" />
+          <ScalarProperty Name="MANAGERPR_ID" ColumnName="MANAGERPR_ID" />
+          <ScalarProperty Name="RATE" ColumnName="RATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GAMESINPROCESSes">
+      <EntityTypeMapping TypeName="DEMASSSSSSModel.GAMESINPROCESS">
+        <MappingFragment StoreEntitySet="GAMESINPROCESS">
+          <ScalarProperty Name="GAMESINPROCESS_ID" ColumnName="GAMESINPROCESS_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="TEAM_ID_DVLP" ColumnName="TEAM_ID_DVLP" />
+          <ScalarProperty Name="TEAM_ID_ARTST" ColumnName="TEAM_ID_ARTST" />
+          <ScalarProperty Name="STARTCREATING" ColumnName="STARTCREATING" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MANAGERs">
+      <EntityTypeMapping TypeName="DEMASSSSSSModel.MANAGER">
+        <MappingFragment StoreEntitySet="MANAGER">
+          <ScalarProperty Name="MANAGER_ID" ColumnName="MANAGER_ID" />
+          <ScalarProperty Name="FIO_MNG" ColumnName="FIO_MNG" />
+          <ScalarProperty Name="SALARY_MNG" ColumnName="SALARY_MNG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TEAM_ARTST">
+      <EntityTypeMapping TypeName="DEMASSSSSSModel.TEAM_ARTST">
+        <MappingFragment StoreEntitySet="TEAM_ARTST">
+          <ScalarProperty Name="TEAM_ARTST_ID" ColumnName="TEAM_ARTST_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TEAM_DVLP">
+      <EntityTypeMapping TypeName="DEMASSSSSSModel.TEAM_DVLP">
+        <MappingFragment StoreEntitySet="TEAM_DVLP">
+          <ScalarProperty Name="TEAM_DVLP_ID" ColumnName="TEAM_DVLP_ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SelectLan" FunctionName="Хранилище DEMASSSSSSModel.SelectLan">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DEMASSSSSSModel.SelectLan_Result">
+          <ScalarProperty Name="FIO_DVLP" ColumnName="FIO_DVLP" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="SALARY_DVLP" ColumnName="SALARY_DVLP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="63501c791ece49b48e23d8ae2c117e80" Name="Diagram1">
+        <EntityTypeShape EntityType="DEMASSSSSSModel.ARTIST" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMASSSSSSModel.DEVELOPER" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMASSSSSSModel.GAME" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMASSSSSSModel.GAMESINPROCESS" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMASSSSSSModel.MANAGER" Width="1.5" PointX="3.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMASSSSSSModel.TEAM_ARTST" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMASSSSSSModel.TEAM_DVLP" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="DEMASSSSSSModel.FK__ARTIST__TEAM_ID___5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMASSSSSSModel.FK__DEVELOPER__TEAM___5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMASSSSSSModel.FK__GAMES__MANAGER_I__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMASSSSSSModel.FK__GAMES__MANAGERPR__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMASSSSSSModel.FK__GAMES__TEAM_ID_D__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMASSSSSSModel.FK__GAMESINPR__TEAM___5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMASSSSSSModel.FK__GAMESINPR__TEAM___5535A963" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,41 @@
+﻿<Window x:Class="GameProj.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameProj"
+        xmlns:view="clr-namespace:GameProj.View"
+        mc:Ignorable="d"
+        Title="AddWindow" Name="WindowAdd" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="#FF252526" WindowStyle="ToolWindow" ResizeMode="CanMinimize">
+    <Window.DataContext>
+        <view:ViewAdditional></view:ViewAdditional>
+    </Window.DataContext>
+    <Grid>
+        <DataGrid Name="SortRateDataGrid" Visibility="Hidden" IsReadOnly="True" Margin="8" AlternatingRowBackground="LightGray" CanUserDeleteRows="False" ItemsSource="{Binding ItemsSortRate,UpdateSourceTrigger=PropertyChanged}" SelectedItem="" AutoGenerateColumns="False" SelectionMode="Single" Background="#FFF0F0F0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FIO}"/>
+                <DataGridTextColumn Header="Название игры" Binding="{Binding NameGame}"/>
+                <DataGridTextColumn Header="Язык" Binding="{Binding LNG}"/>
+                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rate}" Foreground="Red"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Visibility="Hidden" Name="SalaryDataGrid" IsReadOnly="True" Margin="8" AlternatingRowBackground="LightGray" CanUserDeleteRows="False" ItemsSource="{Binding ItemsDevSalary,UpdateSourceTrigger=PropertyChanged}" SelectedItem="" AutoGenerateColumns="False" SelectionMode="Single" Background="#FFF0F0F0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FIO_DVLP}"/>
+                <DataGridTextColumn Header="Название игры" Binding="{Binding NAME}"/>
+                <DataGridTextColumn Header="Зарплата" Binding="{Binding SALARY_DVLP}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox SelectionChanged="ComboBox_OnSelectionChanged" ItemsSource="{Binding Path=ItemsLan}" Name="ComboBox" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="655,9.5,0,0"/>
+
+        <DataGrid Visibility="Hidden" Name="ProjDataGrid" IsReadOnly="True" Margin="8" AlternatingRowBackground="LightGray" CanUserDeleteRows="False" ItemsSource="{Binding ItemsProjects,UpdateSourceTrigger=PropertyChanged}" SelectedItem="" AutoGenerateColumns="False" SelectionMode="Single" Background="#FFF0F0F0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название игры" Binding="{Binding NAME}"/>
+                <DataGridTextColumn Header="Профит" Binding="{Binding PROFIT}"/>
+                <DataGridTextColumn Header="Срок создания(мес)" Binding="{Binding MONTH_CREATING}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</Window>
